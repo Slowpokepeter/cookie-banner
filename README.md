@@ -1,5 +1,17 @@
 # Cookie Consent Banner
 
+To add this cookie banner to your webflow project simply add this script to the `head` of your website or page:
+```
+<script src="https://cookie-banner-five.vercel.app/static/js/main.85603790.js" defer
+  data-style="light"
+  data-reject-button="none"
+  data-accept-button-color="#635BFF"
+  data-accept-button-text-color="#FFFFFF"
+  data-position="bottom-right">
+</script>
+```
+You can change the props as you'd like. Reference the props below:
+
 ## Props
 
 - **style**: Specifies the style of the banner. Options are `'light'` and `'dark'`.
