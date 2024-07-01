@@ -7,13 +7,13 @@ import './App.css';
 
 // Function to get attributes from the script tag
 function getScriptAttributes() {
-  const script = document.currentScript;
+  const script = document.querySelector('script[src*="main"]'); // Select script by src
   return {
-    style: script.getAttribute('data-style') || 'light',
-    rejectButton: script.getAttribute('data-reject-button') || 'none',
-    acceptButtonColor: script.getAttribute('data-accept-button-color') || '#030712',
-    acceptButtonTextColor: script.getAttribute('data-accept-button-text-color') || '#FFFFFF',
-    position: script.getAttribute('data-position') || 'bottom-right',
+    style: script ? script.getAttribute('data-style') || 'light' : 'light',
+    rejectButton: script ? script.getAttribute('data-reject-button') || 'show' : 'show',
+    acceptButtonColor: script ? script.getAttribute('data-accept-button-color') || '#4CAF50' : '#4CAF50',
+    acceptButtonTextColor: script ? script.getAttribute('data-accept-button-text-color') || '#FFFFFF' : '#FFFFFF',
+    position: script ? script.getAttribute('data-position') || 'bottom-right' : 'bottom-right',
   };
 }
 
