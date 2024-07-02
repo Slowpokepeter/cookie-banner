@@ -1,5 +1,7 @@
 # Cookie Consent Banner
 
+<img src="https://github.com/Slowpokepeter/cookie-banner/assets/101063969/06729641-b833-4ad2-bac0-0b4ba236efb7" />
+
 To add this cookie banner to your webflow project simply add this script to the `head` of your website or page:
 ```
 <script src="https://cookie-banner-five.vercel.app/static/js/main.85603790.js" defer
