@@ -12,6 +12,9 @@ To add this cookie banner to your webflow project simply add this script to the 
   data-position="bottom-right">
 </script>
 ```
+
+Add then add a ```<div class="cookie-consent"``` inside ```<body>```
+
 You can change the props as you'd like. Reference the props below:
 
 ## Props
