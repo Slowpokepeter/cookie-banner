@@ -8,7 +8,8 @@ const App = ({
   acceptButtonColor,
   acceptButtonTextColor,
   position,
-  onCustomize
+  customizable,
+  gtmId,
 }) => {
   return (
     <div>
@@ -18,7 +19,8 @@ const App = ({
         acceptButtonColor={acceptButtonColor}
         acceptButtonTextColor={acceptButtonTextColor}
         position={position}
-        onCustomize={onCustomize}
+        customizable={customizable}
+        gtmId={gtmId}
       />
     </div>
   );

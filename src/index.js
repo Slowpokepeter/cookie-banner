@@ -11,9 +11,11 @@ function getScriptAttributes() {
   return {
     style: script ? script.getAttribute('data-style') || 'light' : 'light',
     rejectButton: script ? script.getAttribute('data-reject-button') || 'show' : 'show',
-    acceptButtonColor: script ? script.getAttribute('data-accept-button-color') || '#4CAF50' : '#4CAF50',
+    acceptButtonColor: script ? script.getAttribute('data-accept-button-color') || '#003099' : '#003099',
     acceptButtonTextColor: script ? script.getAttribute('data-accept-button-text-color') || '#FFFFFF' : '#FFFFFF',
     position: script ? script.getAttribute('data-position') || 'bottom-right' : 'bottom-right',
+    customizable: script ? script.getAttribute('data-customizable') === 'true' : true,
+    gtmId: script ? script.getAttribute('data-gtm-id') : null,
   };
 }
 
