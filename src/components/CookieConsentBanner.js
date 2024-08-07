@@ -218,7 +218,7 @@ const CookieConsentBanner = ({
 
       // Ensure the gtag function is defined
       window.dataLayer = window.dataLayer || [];
-      window.gtag = function() { window.dataLayer.push(arguments); };
+      window.gtag = function () { window.dataLayer.push(arguments); };
 
       // Set the default consent state using gtag
       window.gtag('consent', 'default', {
@@ -227,6 +227,7 @@ const CookieConsentBanner = ({
         'functionality_storage': 'denied',
         'personalization_storage': 'denied',
         'security_storage': 'denied',
+        'wait_for_update': 500,
       });
 
       // Add the GTM script only after setting the default consent state
