@@ -1,9 +1,8 @@
-// src/components/CookieCustomize.js
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import './CookieConsentBanner.css';
 
-const CookieCustomize = ({ preferences, onSave, acceptButtonColor, acceptButtonTextColor }) => {
+const CookieCustomize = ({ preferences, onSave, acceptButtonColor, acceptButtonTextColor, style }) => {
   const [localPreferences, setLocalPreferences] = useState(preferences);
 
   const handleChange = (e) => {
@@ -31,9 +30,9 @@ const CookieCustomize = ({ preferences, onSave, acceptButtonColor, acceptButtonT
   };
 
   return (
-    <div className="cookie-customize">
-      <h3>Cookie Settings</h3>
-      <p className="p-cookies">We use cookies to enhance your experience, analyze traffic, and deliver personalized content.</p>
+    <div className={`cookie-customize ${style}`}>
+      <h3 className={style}>Cookie Settings</h3>
+      <p className={`p-cookies ${style}`}>We use cookies to enhance your experience, analyze traffic, and deliver personalized content.</p>
       <div className='custom-wrap'>
         <div className='custom-setting'>
           Analytics
@@ -44,7 +43,7 @@ const CookieCustomize = ({ preferences, onSave, acceptButtonColor, acceptButtonT
               checked={localPreferences.analytics}
               onChange={handleChange}
             />
-            <span className='slider round' style={localPreferences.analytics ? sliderStyle : null}></span>
+            <span className={`slider round ${style}`} style={localPreferences.analytics ? sliderStyle : null}></span>
           </label>
         </div>
         <div className='custom-setting'>
@@ -56,7 +55,7 @@ const CookieCustomize = ({ preferences, onSave, acceptButtonColor, acceptButtonT
               checked={localPreferences.marketing}
               onChange={handleChange}
             />
-            <span className='slider round' style={localPreferences.marketing ? sliderStyle : null}></span>
+            <span className={`slider round ${style}`} style={localPreferences.marketing ? sliderStyle : null}></span>
           </label>
         </div>
         <div className='custom-setting'>
@@ -68,7 +67,7 @@ const CookieCustomize = ({ preferences, onSave, acceptButtonColor, acceptButtonT
               checked={localPreferences.functionality}
               onChange={handleChange}
             />
-            <span className='slider round' style={localPreferences.functionality ? sliderStyle : null}></span>
+            <span className={`slider round ${style}`} style={localPreferences.functionality ? sliderStyle : null}></span>
           </label>
         </div>
         <div className='custom-setting'>
@@ -80,7 +79,7 @@ const CookieCustomize = ({ preferences, onSave, acceptButtonColor, acceptButtonT
               checked={localPreferences.personalization}
               onChange={handleChange}
             />
-            <span className='slider round' style={localPreferences.personalization ? sliderStyle : null}></span>
+            <span className={`slider round ${style}`} style={localPreferences.personalization ? sliderStyle : null}></span>
           </label>
         </div>
         <div className='custom-setting'>
@@ -92,7 +91,7 @@ const CookieCustomize = ({ preferences, onSave, acceptButtonColor, acceptButtonT
               checked={localPreferences.security}
               onChange={handleChange}
             />
-            <span className='slider round' style={localPreferences.security ? sliderStyle : null}></span>
+            <span className={`slider round ${style}`} style={localPreferences.security ? sliderStyle : null}></span>
           </label>
         </div>
       </div>
@@ -106,6 +105,7 @@ CookieCustomize.propTypes = {
   onSave: PropTypes.func.isRequired,
   acceptButtonColor: PropTypes.string.isRequired,
   acceptButtonTextColor: PropTypes.string.isRequired,
+  style: PropTypes.string.isRequired // Add this prop type
 };
 
 export default CookieCustomize;
