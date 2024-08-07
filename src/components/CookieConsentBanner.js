@@ -32,6 +32,10 @@ body {
   color: #c4c4c4;
 }
 
+.slider.dark {
+  background-color: #4e4e4e;
+}
+
 .cookie-consent-header {
   display: flex;
   flex-direction: column;
