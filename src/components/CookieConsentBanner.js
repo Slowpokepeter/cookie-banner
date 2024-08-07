@@ -223,14 +223,14 @@ const CookieConsentBanner = ({
       window.dataLayer = window.dataLayer || [];
       window.dataLayer.push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
 
-      // Set the default consent state
-      window.dataLayer.push({
-        event: 'default consent',
-        ad_storage: 'denied',
-        analytics_storage: 'denied',
-        functionality_storage: 'denied',
-        personalization_storage: 'denied',
-        security_storage: 'denied'
+      // Set the default consent state using gtag
+      window.gtag = function() { window.dataLayer.push(arguments); };
+      window.gtag('consent', 'default', {
+        'ad_storage': 'denied',
+        'analytics_storage': 'denied',
+        'functionality_storage': 'denied',
+        'personalization_storage': 'denied',
+        'security_storage': 'denied',
       });
     };
 
