@@ -218,6 +218,7 @@ const CookieConsentBanner = ({
       personalization_storage: 'granted',
       security_storage: 'granted',
     });
+    allConsentGranted();
     initializeGTM();
   };
 
@@ -249,6 +250,7 @@ const CookieConsentBanner = ({
       personalization_storage: newPreferences.personalization ? 'granted' : 'denied',
       security_storage: newPreferences.security ? 'granted' : 'denied',
     });
+    updateGtagConsent(newPreferences);
     initializeGTM();
   };
 
@@ -272,6 +274,26 @@ const CookieConsentBanner = ({
       functionality_storage: consentState.functionality_storage,
       personalization_storage: consentState.personalization_storage,
       security_storage: consentState.security_storage,
+    });
+  };
+
+  const updateGtagConsent = (preferences) => {
+    window.gtag('consent', 'update', {
+      'ad_storage': preferences.marketing ? 'granted' : 'denied',
+      'analytics_storage': preferences.analytics ? 'granted' : 'denied',
+      'functionality_storage': preferences.functionality ? 'granted' : 'denied',
+      'personalization_storage': preferences.personalization ? 'granted' : 'denied',
+      'security_storage': preferences.security ? 'granted' : 'denied',
+    });
+  };
+
+  const allConsentGranted = () => {
+    window.gtag('consent', 'update', {
+      'ad_storage': 'granted',
+      'analytics_storage': 'granted',
+      'functionality_storage': 'granted',
+      'personalization_storage': 'granted',
+      'security_storage': 'granted'
     });
   };
 
