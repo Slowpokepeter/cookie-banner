@@ -56,6 +56,8 @@ body {
 .cookie-consent-buttons {
   display: flex;
   justify-content: start;
+  font-size: 13px;
+  line-height: normal;
   gap: 10px;
   margin-top: 20px;
 }
