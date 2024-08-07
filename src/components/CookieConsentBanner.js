@@ -24,7 +24,12 @@ body {
 
 .cookie-consent-popup.dark {
   background-color: #333;
+  box-shadow: 0 2px 16px rgba(3, 7, 18, .08), 0 16px 20px rgba(3, 7, 18, .08), 0 0 0 1px rgba(3, 7, 18, .08), inset 0 0 0 0.5px rgb(92 92 92 / 60%), inset 0 0 0 1px rgb(42 42 42);
   color: #fff;
+}
+
+.p-cookies.dark {
+  color: ##c4c4c4;
 }
 
 .cookie-consent-header {
