@@ -223,6 +223,8 @@ const CookieConsentBanner = ({
       // Set the default consent state using gtag
       window.gtag('consent', 'default', {
         'ad_storage': 'denied',
+        'ad_user_data': 'denied',
+        'ad_personalization': 'denied',
         'analytics_storage': 'denied',
         'functionality_storage': 'denied',
         'personalization_storage': 'denied',
@@ -259,6 +261,8 @@ const CookieConsentBanner = ({
     document.cookie = "cookieConsent=rejected; path=/; max-age=31536000"; // 1 year
     updateGtagConsent({
       ad_storage: 'denied',
+      ad_user_data: 'denied',
+      ad_personalization: 'denied',
       analytics_storage: 'denied',
       functionality_storage: 'denied',
       personalization_storage: 'denied',
@@ -281,6 +285,8 @@ const CookieConsentBanner = ({
   const updateGtagConsent = (preferences) => {
     window.gtag('consent', 'update', {
       'ad_storage': preferences.marketing ? 'granted' : 'denied',
+      'ad_user_data': preferences.marketing ? 'granted' : 'denied',
+      'ad_personalization': preferences.marketing ? 'granted' : 'denied',
       'analytics_storage': preferences.analytics ? 'granted' : 'denied',
       'functionality_storage': preferences.functionality ? 'granted' : 'denied',
       'personalization_storage': preferences.personalization ? 'granted' : 'denied',
@@ -291,6 +297,8 @@ const CookieConsentBanner = ({
   const allConsentGranted = () => {
     window.gtag('consent', 'update', {
       'ad_storage': 'granted',
+      'ad_user_data': 'granted',
+      'ad_personalization': 'granted',
       'analytics_storage': 'granted',
       'functionality_storage': 'granted',
       'personalization_storage': 'granted',
