@@ -206,6 +206,7 @@ const CookieConsentBanner = ({
     if (!consentCookie) {
       setVisible(true);
     }
+    initializeGTM();
   }, []);
 
   const handleAccept = () => {
