@@ -269,9 +269,13 @@ const CookieConsentBanner = ({
       }
     };
 
+    // Set default consent state as early as possible
     setDefaultConsentState();
-    initializeGTM();
+    // Initialize consent management
     initializeConsentManagement();
+
+    // Wait for default consent state to be set before initializing GTM
+    setTimeout(initializeGTM, 1000);
 
     const consentCookie = document.cookie.split('; ').find(row => row.startsWith('cookieConsent='));
     if (!consentCookie) {
