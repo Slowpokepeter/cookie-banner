@@ -216,10 +216,11 @@ const CookieConsentBanner = ({
     const initializeGTM = () => {
       if (!gtmId) return;
 
-      // Set the default consent state using gtag
+      // Ensure the gtag function is defined
       window.dataLayer = window.dataLayer || [];
       window.gtag = function() { window.dataLayer.push(arguments); };
 
+      // Set the default consent state using gtag
       window.gtag('consent', 'default', {
         'ad_storage': 'denied',
         'analytics_storage': 'denied',
@@ -228,12 +229,15 @@ const CookieConsentBanner = ({
         'security_storage': 'denied',
       });
 
+      // Add the GTM script only after setting the default consent state
       const script = document.createElement('script');
       script.async = true;
       script.src = `https://www.googletagmanager.com/gtm.js?id=${gtmId}`;
       document.head.appendChild(script);
 
-      window.dataLayer.push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
+      script.onload = () => {
+        window.dataLayer.push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
+      };
     };
 
     const consentCookie = document.cookie.split('; ').find(row => row.startsWith('cookieConsent='));

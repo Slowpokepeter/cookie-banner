@@ -95,7 +95,9 @@ const CookieCustomize = ({ preferences, onSave, acceptButtonColor, acceptButtonT
           </label>
         </div>
       </div>
-      <button onClick={handleSave} className="save-button" style={{ backgroundColor: acceptButtonColor, color: acceptButtonTextColor }}>Save Preferences</button>
+      <button onClick={handleSave} className="save-button" style={{ backgroundColor: acceptButtonColor, color: acceptButtonTextColor }}>
+        Save Preferences
+      </button>
     </div>
   );
 };
@@ -105,7 +107,7 @@ CookieCustomize.propTypes = {
   onSave: PropTypes.func.isRequired,
   acceptButtonColor: PropTypes.string.isRequired,
   acceptButtonTextColor: PropTypes.string.isRequired,
-  style: PropTypes.string.isRequired // Add this prop type
+  style: PropTypes.string.isRequired,
 };
 
 export default CookieCustomize;
