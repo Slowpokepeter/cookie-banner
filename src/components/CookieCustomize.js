@@ -1,3 +1,4 @@
+// src/components/CookieCustomize.js
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import './CookieConsentBanner.css';
@@ -7,12 +8,11 @@ const CookieCustomize = ({ preferences, onSave, acceptButtonColor, acceptButtonT
 
   const handleChange = (e) => {
     const { name, checked } = e.target;
-    const updatedPreferences = { ...localPreferences, [name]: checked };
-    setLocalPreferences(updatedPreferences);
-    updateGtagConsent(updatedPreferences);
+    setLocalPreferences(prev => ({ ...prev, [name]: checked }));
   };
 
   const handleSave = () => {
+    updateGtagConsent(localPreferences);
     onSave(localPreferences);
   };
 
