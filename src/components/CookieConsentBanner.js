@@ -211,16 +211,13 @@ const CookieConsentBanner = ({
     personalization: false,
     security: false,
   });
+  const [consentDefaultSet, setConsentDefaultSet] = useState(false);
 
   useEffect(() => {
-    const initializeGTM = () => {
-      if (!gtmId) return;
-
-      // Ensure the gtag function is defined
+    const setDefaultConsent = () => {
       window.dataLayer = window.dataLayer || [];
       window.gtag = function () { window.dataLayer.push(arguments); };
 
-      // Set the default consent state using gtag
       window.gtag('consent', 'default', {
         'ad_storage': 'denied',
         'ad_user_data': 'denied',
@@ -231,6 +228,21 @@ const CookieConsentBanner = ({
         'security_storage': 'denied',
         'wait_for_update': 500,
       });
+
+      setConsentDefaultSet(true);
+    };
+
+    setDefaultConsent();
+
+    const consentCookie = document.cookie.split('; ').find(row => row.startsWith('cookieConsent='));
+    if (!consentCookie) {
+      setVisible(true);
+    }
+  }, []);
+
+  useEffect(() => {
+    const initializeGTM = () => {
+      if (!gtmId || !consentDefaultSet) return;
 
       // Add the GTM script only after setting the default consent state
       const script = document.createElement('script');
@@ -243,12 +255,8 @@ const CookieConsentBanner = ({
       };
     };
 
-    const consentCookie = document.cookie.split('; ').find(row => row.startsWith('cookieConsent='));
-    if (!consentCookie) {
-      setVisible(true);
-    }
     initializeGTM();
-  }, [gtmId]);
+  }, [gtmId, consentDefaultSet]);
 
   const handleAccept = () => {
     setVisible(false);
