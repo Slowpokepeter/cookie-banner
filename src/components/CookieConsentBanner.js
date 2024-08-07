@@ -29,7 +29,7 @@ body {
 }
 
 .p-cookies.dark {
-  color: ##c4c4c4;
+  color: #c4c4c4;
 }
 
 .cookie-consent-header {
