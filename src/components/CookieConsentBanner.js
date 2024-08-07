@@ -193,6 +193,8 @@ input:checked + .slider:before {
 }
 `
 
+const COOKIE_NAME = 'cookieConsent';
+
 const CookieConsentBanner = ({
   style = 'light',
   rejectButton = 'show',
@@ -211,10 +213,9 @@ const CookieConsentBanner = ({
     personalization: false,
     security: false,
   });
-  const [consentDefaultSet, setConsentDefaultSet] = useState(false);
 
   useEffect(() => {
-    const setDefaultConsent = () => {
+    const setDefaultConsentState = () => {
       window.dataLayer = window.dataLayer || [];
       window.gtag = function () { window.dataLayer.push(arguments); };
 
@@ -228,23 +229,11 @@ const CookieConsentBanner = ({
         'security_storage': 'denied',
         'wait_for_update': 500,
       });
-
-      setConsentDefaultSet(true);
     };
 
-    setDefaultConsent();
-
-    const consentCookie = document.cookie.split('; ').find(row => row.startsWith('cookieConsent='));
-    if (!consentCookie) {
-      setVisible(true);
-    }
-  }, []);
-
-  useEffect(() => {
     const initializeGTM = () => {
-      if (!gtmId || !consentDefaultSet) return;
+      if (!gtmId) return;
 
-      // Add the GTM script only after setting the default consent state
       const script = document.createElement('script');
       script.async = true;
       script.src = `https://www.googletagmanager.com/gtm.js?id=${gtmId}`;
@@ -255,12 +244,50 @@ const CookieConsentBanner = ({
       };
     };
 
+    const getCookieValues = (name) => {
+      const cookieValue = document.cookie.split('; ').find(row => row.startsWith(name + '='));
+      return cookieValue ? JSON.parse(decodeURIComponent(cookieValue.split('=')[1])) : undefined;
+    };
+
+    const onUserConsent = (consent) => {
+      const consentModeStates = {
+        ad_storage: consent.marketing ? 'granted' : 'denied',
+        ad_user_data: consent.marketing ? 'granted' : 'denied',
+        ad_personalization: consent.marketing ? 'granted' : 'denied',
+        analytics_storage: consent.analytics ? 'granted' : 'denied',
+        functionality_storage: consent.functionality ? 'granted' : 'denied',
+        personalization_storage: consent.personalization ? 'granted' : 'denied',
+        security_storage: consent.security ? 'granted' : 'denied',
+      };
+      window.gtag('consent', 'update', consentModeStates);
+    };
+
+    const initializeConsentManagement = () => {
+      const settings = getCookieValues(COOKIE_NAME);
+      if (typeof settings !== 'undefined') {
+        onUserConsent(settings);
+      }
+    };
+
+    setDefaultConsentState();
     initializeGTM();
-  }, [gtmId, consentDefaultSet]);
+    initializeConsentManagement();
+
+    const consentCookie = document.cookie.split('; ').find(row => row.startsWith('cookieConsent='));
+    if (!consentCookie) {
+      setVisible(true);
+    }
+  }, [gtmId]);
 
   const handleAccept = () => {
     setVisible(false);
-    document.cookie = "cookieConsent=accepted; path=/; max-age=31536000"; // 1 year
+    document.cookie = `cookieConsent=${JSON.stringify({
+      analytics: true,
+      marketing: true,
+      functionality: true,
+      personalization: true,
+      security: true,
+    })}; path=/; max-age=31536000`; // 1 year
     allConsentGranted();
   };
 
