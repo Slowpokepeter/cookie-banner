@@ -202,18 +202,38 @@ const CookieConsentBanner = ({
   });
 
   useEffect(() => {
+    const initializeGTM = () => {
+      if (!gtmId) return;
+      const script = document.createElement('script');
+      script.async = true;
+      script.src = `https://www.googletagmanager.com/gtm.js?id=${gtmId}`;
+      document.head.appendChild(script);
+
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
+
+      // Set the default consent state
+      window.dataLayer.push({
+        event: 'default consent',
+        ad_storage: 'denied',
+        analytics_storage: 'denied',
+        functionality_storage: 'denied',
+        personalization_storage: 'denied',
+        security_storage: 'denied'
+      });
+    };
+
     const consentCookie = document.cookie.split('; ').find(row => row.startsWith('cookieConsent='));
     if (!consentCookie) {
       setVisible(true);
     }
     initializeGTM();
-  }, []);
+  }, [gtmId]);
 
   const handleAccept = () => {
     setVisible(false);
     document.cookie = "cookieConsent=accepted; path=/; max-age=31536000"; // 1 year
     allConsentGranted();
-    initializeGTM();
   };
 
   const handleReject = () => {
@@ -238,28 +258,6 @@ const CookieConsentBanner = ({
     setShowCustomize(false);
     setVisible(false);
     updateGtagConsent(newPreferences);
-    initializeGTM();
-  };
-
-  const initializeGTM = () => {
-    if (!gtmId) return;
-    const script = document.createElement('script');
-    script.async = true;
-    script.src = `https://www.googletagmanager.com/gtm.js?id=${gtmId}`;
-    document.head.appendChild(script);
-
-    window.dataLayer = window.dataLayer || [];
-    window.dataLayer.push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
-
-    // Set the default consent state
-    window.dataLayer.push({
-      event: 'default consent',
-      ad_storage: 'denied',
-      analytics_storage: 'denied',
-      functionality_storage: 'denied',
-      personalization_storage: 'denied',
-      security_storage: 'denied'
-    });
   };
 
   const updateGtagConsent = (preferences) => {
