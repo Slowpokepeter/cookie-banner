@@ -3,6 +3,185 @@ import PropTypes from 'prop-types';
 import CookieCustomize from './CookieCustomize';
 import './CookieConsentBanner.css';
 
+const inlineStyles = `
+body {
+  font-family: 'Inter', sans-serif;
+}
+
+.cookie-consent-popup {
+  position: fixed;
+  width: 320px;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 16px rgba(3, 7, 18, .08), 0 16px 20px rgba(3, 7, 18, .08), 0 0 0 1px rgba(3, 7, 18, .08), inset 0 0 0 0.5px rgba(229, 231, 235, .6), inset 0 0 0 1px rgba(255, 255, 255);
+  z-index: 1000;
+}
+
+.cookie-consent-popup.light {
+  background-color: #fff;
+  color: #000;
+}
+
+.cookie-consent-popup.dark {
+  background-color: #333;
+  color: #fff;
+}
+
+.cookie-consent-header {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-content: start;
+  margin-bottom: 10px;
+}
+
+.cookie-head {
+  font-size: 20px;
+  font-weight: 500;
+  margin-bottom: 0px;
+}
+
+.p-cookies {
+  font-size: 14px;
+  color: #475569;
+}
+
+.cookie-icon {
+  width: 24px;
+  height: 24px;
+  margin-right: 10px;
+  color: #635BFF;
+}
+
+.cookie-consent-buttons {
+  display: flex;
+  justify-content: start;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.cookie-consent-buttons button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.cookie-consent-buttons .customize-button {
+  background-color: #fff;
+  color: #000;
+  border: 1px solid #ccc;
+}
+
+.cookie-consent-popup.top-left {
+  top: 20px;
+  left: 20px;
+}
+
+.cookie-consent-popup.top-right {
+  top: 20px;
+  right: 20px;
+}
+
+.cookie-consent-popup.bottom-left {
+  bottom: 20px;
+  left: 20px;
+}
+
+.cookie-consent-popup.bottom-right {
+  bottom: 20px;
+  right: 20px;
+}
+
+/* The switch - the box around the slider */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 50px;
+  height: 28px;
+}
+
+/* Hide default HTML checkbox */
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* The slider */
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 20px;
+  width: 20px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: #2196F3;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(20px);
+  -ms-transform: translateX(20px);
+  transform: translateX(20px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+
+.custom-wrap {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.custom-setting {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.save-button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  width: 100%;
+}
+`
+
 const CookieConsentBanner = ({
   style = 'light',
   rejectButton = 'show',
@@ -71,6 +250,7 @@ const CookieConsentBanner = ({
 
   return (
     <div className={`cookie-consent-popup ${style} ${position}`}>
+      <style>{inlineStyles}</style>
       {!showCustomize ? (
         <>
           <div className="cookie-consent-header">
