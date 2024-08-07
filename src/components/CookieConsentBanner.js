@@ -215,16 +215,11 @@ const CookieConsentBanner = ({
   useEffect(() => {
     const initializeGTM = () => {
       if (!gtmId) return;
-      const script = document.createElement('script');
-      script.async = true;
-      script.src = `https://www.googletagmanager.com/gtm.js?id=${gtmId}`;
-      document.head.appendChild(script);
-
-      window.dataLayer = window.dataLayer || [];
-      window.dataLayer.push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
 
       // Set the default consent state using gtag
+      window.dataLayer = window.dataLayer || [];
       window.gtag = function() { window.dataLayer.push(arguments); };
+
       window.gtag('consent', 'default', {
         'ad_storage': 'denied',
         'analytics_storage': 'denied',
@@ -232,6 +227,13 @@ const CookieConsentBanner = ({
         'personalization_storage': 'denied',
         'security_storage': 'denied',
       });
+
+      const script = document.createElement('script');
+      script.async = true;
+      script.src = `https://www.googletagmanager.com/gtm.js?id=${gtmId}`;
+      document.head.appendChild(script);
+
+      window.dataLayer.push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
     };
 
     const consentCookie = document.cookie.split('; ').find(row => row.startsWith('cookieConsent='));
