@@ -211,13 +211,6 @@ const CookieConsentBanner = ({
   const handleAccept = () => {
     setVisible(false);
     document.cookie = "cookieConsent=accepted; path=/; max-age=31536000"; // 1 year
-    setGtmConsentState({
-      ad_storage: 'granted',
-      analytics_storage: 'granted',
-      functionality_storage: 'granted',
-      personalization_storage: 'granted',
-      security_storage: 'granted',
-    });
     allConsentGranted();
     initializeGTM();
   };
@@ -225,7 +218,7 @@ const CookieConsentBanner = ({
   const handleReject = () => {
     setVisible(false);
     document.cookie = "cookieConsent=rejected; path=/; max-age=31536000"; // 1 year
-    setGtmConsentState({
+    updateGtagConsent({
       ad_storage: 'denied',
       analytics_storage: 'denied',
       functionality_storage: 'denied',
@@ -243,13 +236,6 @@ const CookieConsentBanner = ({
     document.cookie = `cookieConsent=${JSON.stringify(newPreferences)}; path=/; max-age=31536000`;
     setShowCustomize(false);
     setVisible(false);
-    setGtmConsentState({
-      ad_storage: newPreferences.marketing ? 'granted' : 'denied',
-      analytics_storage: newPreferences.analytics ? 'granted' : 'denied',
-      functionality_storage: newPreferences.functionality ? 'granted' : 'denied',
-      personalization_storage: newPreferences.personalization ? 'granted' : 'denied',
-      security_storage: newPreferences.security ? 'granted' : 'denied',
-    });
     updateGtagConsent(newPreferences);
     initializeGTM();
   };
@@ -263,18 +249,6 @@ const CookieConsentBanner = ({
 
     window.dataLayer = window.dataLayer || [];
     window.dataLayer.push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
-  };
-
-  const setGtmConsentState = (consentState) => {
-    window.dataLayer = window.dataLayer || [];
-    window.dataLayer.push({
-      event: 'default consent',
-      ad_storage: consentState.ad_storage,
-      analytics_storage: consentState.analytics_storage,
-      functionality_storage: consentState.functionality_storage,
-      personalization_storage: consentState.personalization_storage,
-      security_storage: consentState.security_storage,
-    });
   };
 
   const updateGtagConsent = (preferences) => {

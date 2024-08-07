@@ -1,4 +1,3 @@
-// src/components/CookieCustomize.js
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import './CookieConsentBanner.css';
@@ -8,11 +7,23 @@ const CookieCustomize = ({ preferences, onSave, acceptButtonColor, acceptButtonT
 
   const handleChange = (e) => {
     const { name, checked } = e.target;
-    setLocalPreferences(prev => ({ ...prev, [name]: checked }));
+    const updatedPreferences = { ...localPreferences, [name]: checked };
+    setLocalPreferences(updatedPreferences);
+    updateGtagConsent(updatedPreferences);
   };
 
   const handleSave = () => {
     onSave(localPreferences);
+  };
+
+  const updateGtagConsent = (preferences) => {
+    window.gtag('consent', 'update', {
+      'ad_storage': preferences.marketing ? 'granted' : 'denied',
+      'analytics_storage': preferences.analytics ? 'granted' : 'denied',
+      'functionality_storage': preferences.functionality ? 'granted' : 'denied',
+      'personalization_storage': preferences.personalization ? 'granted' : 'denied',
+      'security_storage': preferences.security ? 'granted' : 'denied',
+    });
   };
 
   const sliderStyle = {
