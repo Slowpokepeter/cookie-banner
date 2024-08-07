@@ -10,7 +10,7 @@ body {
 
 .cookie-consent-popup {
   position: fixed;
-  width: 320px;
+  width: 360px;
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 2px 16px rgba(3, 7, 18, .08), 0 16px 20px rgba(3, 7, 18, .08), 0 0 0 1px rgba(3, 7, 18, .08), inset 0 0 0 0.5px rgba(229, 231, 235, .6), inset 0 0 0 1px rgba(255, 255, 255);
